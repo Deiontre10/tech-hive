@@ -15,8 +15,8 @@ Post.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        body: {
-            type: DataTypes.TEXT,
+        content: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
         date_made: {

@@ -1,6 +1,3 @@
-{{!-- {{#each posts as |post|}} --}}
-<section class="card">
-    <header>{{post.title}}</header>
-    <p>{{post.body}}</p>
-</section>
-{{!-- {{\each}} --}}
+{{#each posts as |post|}}
+{{> post-details}}
+{{/each}}
