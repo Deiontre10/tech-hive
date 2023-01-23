@@ -24,10 +24,10 @@ router.get('/', withAuth, async (req, res) => {
       ]
     });
 
-    const blogPost = data.map(post => post.get({ plain: true }));
+    const posts = data.map(post => post.get({ plain: true }));
 
     res.render('dashboard', {
-      blogPost,
+      posts,
       loggedIn: req.session.loggedIn
     });
   } catch (err) {
@@ -35,79 +35,17 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/edit/:id', withAuth, async (req, res) => {
+router.post('/new'), withAuth, async (req, res) => {
   try {
-    const data = await Post.findOne({
-      where: {
-        id: req.params.id
-      },
-      attributes: ['id', 'title', 'body', 'date_made'],
-      include: [
-        {
-          model: Comment,
-          attributes: ['id', 'body', 'post_id', 'user_id', 'date_made'],
-          include: {
-            model: User,
-            attributes: ['username']
-          }
-        },
-        {
-          model: User,
-          attributes: ['username']
-        }
-      ]
+    const data = await Post.create({
+      title: req.body.title,
+      content: req.body.content,
+      date_made: req.body.date_made
     });
-
-    if (!data) {
-      res.status(404).json({ message: "No post found!" });
-      return;
-    }
-
-    const blogPost = data.get({ plain: true });
-
-    res.render('edit', {
-      blogPost,
-      loggedIn: req.session.loggedIn
-    })
-
+    res.status(200).json(data);
   } catch (err) {
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
-});
-
-router.get('/create', withAuth, async (req, res) => {
-  try {
-    const data = await Post.findAll({
-      where: {
-        user_id: req.session.user_id
-      },
-      attributes: ['id', 'title', 'body', 'date_made'],
-      include: [
-        {
-          model: Comment,
-          attributes: ['id', 'body', 'post_id', 'user_id', 'date_made'],
-          include: {
-            model: User,
-            attributes: ['username']
-          }
-        },
-        {
-          model: User,
-          attributes: ['username']
-        }
-      ]
-    })
-
-    const blogPost = data.map(post => post.get({ plain: true }));
-
-    res.render('create', {
-      blogPost,
-      loggedIn: req.session.loggedIn
-    })
-
-  } catch (err) {
-    res.status(500).json(err)
-  }
-});
+}
 
 module.exports = router;
