@@ -17,10 +17,10 @@ router.get('/', async (req, res) => {
       ]
     });
 
-    const blogPost = data.map(post => post.get({ plain: true }));
+    const posts = data.map(post => post.get({ plain: true }));
 
     res.render('homepage', {
-      blogPost,
+      posts,
       loggedIn: req.session.loggedIn
     });
   } catch (err) {

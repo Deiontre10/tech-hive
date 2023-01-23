@@ -3,7 +3,7 @@ const { Post } = require('../models');
 const data = [
     {
         title: 'Pikachu is the GOAT',
-        content: 'Pikachu carried my carrier as a trainer',
+        content: 'Pikachu carried my career as a trainer',
         user_id: 1,
     },
     {
