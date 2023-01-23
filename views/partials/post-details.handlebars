@@ -1,4 +1,9 @@
 <article class="card">
-    <header><strong>{{title}}</strong></header>
+    <a href="/post/{{id}}">
+        <header>
+            <strong>{{title}}</strong>
+            Posted by {{user_id}} on {{format_date date_made}}
+        </header>
+    </a>
     <p>{{content}}</p>
 </article>
