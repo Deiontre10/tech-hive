@@ -17,10 +17,10 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const data = await Comment.findByPk({
-            where: {
-                id: req.params.id
-            }
+        const data = await Comment.findByPk(req.params.id, {
+            // where: {
+            //     id: req.params.id
+            // }
         });
 
         res.status(200).json(data);
