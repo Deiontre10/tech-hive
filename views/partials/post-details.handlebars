@@ -1,8 +1,8 @@
 <article class="card">
-    <a href="/post/{{id}}">
+    <a href="/api/posts/{{id}}">
         <header>
             <strong>{{title}}</strong>
-            Posted by {{user_id}} on {{format_date date_made}}
+            Posted by {{user.username}} on {{format_date date_made}}
         </header>
     </a>
     <p>{{content}}</p>
