@@ -6,9 +6,9 @@ router.get('/', withAuth, async (req, res) => {
   try {
     const data = await Post.findAll({
       where: {
-        user_id: req.session.user_id
+        user_id: req.session.userId
       },
-      attributes: ["id", "title", "body", "date_made"],
+      attributes: ["id", "title", "content", "user_id"],
       include: [
         {
           model: User,
