@@ -36,6 +36,19 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
+router.get('/new', withAuth, (req, res) => {
+  console.log("Is this working");
+  try {
+    res.render('create', {
+      loggedIn: req.session.loggedIn
+    })
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+});
+
 router.get('/:id', withAuth, async (req, res) => {
   try {
     const editPost = await Post.findByPk(req.params.id, {
@@ -68,10 +81,5 @@ router.get('/:id', withAuth, async (req, res) => {
   }
 });
 
-router.get('/new', withAuth, (req, res) => {
-    res.render('create', {
-      loggedIn: req.session.loggedIn
-    })
-});
 
 module.exports = router;
