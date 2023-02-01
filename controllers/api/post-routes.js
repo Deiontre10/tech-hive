@@ -5,7 +5,7 @@ const withAuth = require('../../utils/auth');
 router.get('/', async (req, res) => {
     try {
         const data = await Post.findAll({
-            attributes: ['id', 'title', 'content', 'created_at'],
+            attributes: ['id', 'title', 'content', 'created_at', 'user_id'],
             include: [
                 {
                     model: User,
@@ -26,7 +26,8 @@ router.get('/', async (req, res) => {
             ]
         })
 
-        res.status(200).json(data);
+        const posts = data.map((post) => post.get({ plain: true }));
+        res.render('homepage', posts)
 
     } catch (err) {
 
@@ -35,13 +36,10 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', withAuth, async (req, res) => {
     try {
         const data = await Post.findByPk(req.params.id, {
-            where: {
-                id: req.params.id
-            },
-            attributes: ['id', 'title', 'content'],
+            attributes: ['id', 'title', 'content', 'created_at', 'user_id'],
             include: [
                 {
                     model: User,
@@ -50,19 +48,19 @@ router.get('/:id', async (req, res) => {
                 {
                     model: Comment,
                     attributes: [
-                        'id', 'body', 'post_id', 'user_id'
+                        'id', 'body', 'post_id', 'user_id', 'created_at'
                     ],
-                    include: [
-                        {
-                            model: User,
-                            attributes: ['username']
-                        }
-                    ]
-                }
-            ]
+                    include:
+                    {
+                        model: User,
+                        attributes: ['username']
+                    },
+                },
+            ],
         });
 
-        res.status(200).json(data);
+        const post = data.get({ plain: true });
+        res.render('comment', { post, loggedIn: true });
 
     } catch (err) {
 

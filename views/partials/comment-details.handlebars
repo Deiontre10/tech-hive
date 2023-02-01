@@ -7,7 +7,7 @@
         <p>Posted by {{user.username}} on {{format_date created_at}}</p>
         <form id="newCommentForm" class="card-body">
             <div>
-                <textarea id="comment">Leave a comment.</textarea>
+                <textarea id="comment" placeholder="Leave a comment."></textarea>
             </div>
             <button type="submit" id="commentBtn" class="btn">Submit!</button>
         </form>
@@ -15,7 +15,7 @@
     {{#each comments as |comment|}}
     <section>
         <header>
-           Posted by {{comment.user.username}} on {{format_date created_at}}
+           Posted by {{user.username}} on {{format_date created_at}}
         </header>
         <p>{{comment.body}}</p>
     </section>
