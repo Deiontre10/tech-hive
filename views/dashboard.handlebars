@@ -1,9 +1,9 @@
-<h1>Dashboard</h1>
+<h2>Dashboard</h2>
 
 <button type="submit" id="newPost" class="btn">Create a new post!</button>
-{{!-- <section class="card">
-    <header>{{post.title}}</header>
-    <p>{{post.body}}</p>
-</section> --}}
+
+{{#each posts as |post|}}
+{{> user-post-details}}
+{{/each}}
 
 <script src="/js/dashboard.js"></script>
