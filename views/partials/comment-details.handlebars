@@ -4,10 +4,10 @@
             <h3>{{title}}</h3>
         </header>
         <p>{{content}}</p>
-        <p>{{user.username}} {{format_date created_at}}</p>
+        <p>Posted by {{user.username}} on {{format_date created_at}}</p>
         <form id="newCommentForm" class="card-body">
             <div>
-                <textarea name="comment" id="comment">Leave a comment.</textarea>
+                <textarea id="comment">Leave a comment.</textarea>
             </div>
             <button type="submit" id="commentBtn" class="btn">Submit!</button>
         </form>
@@ -15,7 +15,7 @@
     {{#each comments as |comment|}}
     <section>
         <header>
-            {{comment.user.username}} {{format_date created_at}}
+           Posted by {{comment.user.username}} on {{format_date created_at}}
         </header>
         <p>{{comment.body}}</p>
     </section>

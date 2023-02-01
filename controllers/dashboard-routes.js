@@ -36,9 +36,9 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
-router.get('/edit/:id', withAuth, async (req, res) => {
+router.get('/:id', withAuth, async (req, res) => {
   try {
-    const editPost = await Post.findOne({
+    const editPost = await Post.findByPk(req.params.id, {
       attributes: ['id', 'title', 'content', 'created_at', 'user_id'],
       include: [
         {
